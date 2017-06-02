@@ -1,0 +1,2 @@
+#!/bin/bash
+for AA in a b c ; do sudo smartctl -a "/dev/sd$AA" | grep "Model\|Power_On_Minutes\|Power_On_Half_Minutes\|Power_On_Hours" | awk '{ if(/Power/ ){ split($10,sas,"h") ;dias = int( sas[1] / 24) ; year = dias / 365 ; yeari = int(year);mese = int ((year - yeari)*12 );print "Horas (Acumuladas): "$10 " || ", dias , "dias || ", yeari, "años y ", mese ," meses //"} if ($0 ~ /Model/){gsub(/Model Family/,"Marca ");gsub(/Device Model/,"Modelo");print} }';done
